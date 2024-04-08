@@ -1,2 +1,2 @@
-# skicarchive
+# skidcollection
 Random skidded / leaked bots for skids...
