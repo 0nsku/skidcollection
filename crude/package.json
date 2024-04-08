@@ -1,0 +1,29 @@
+{
+  "name": "ayo-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "discord-image-generation": "^1.4.9",
+    "discord.js": "^13.2.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "glob": "^7.2.0",
+    "mathjs": "^10.0.0",
+    "moment": "^2.29.1",
+    "mongoose": "^6.0.12",
+    "parse-ms": "^2.1.0",
+    "reconlx": "^2.5.1",
+    "relevant-urban": "^2.0.0"
+  },
+  "devDependencies": {
+    "node": "^16.6.1"
+  }
+}

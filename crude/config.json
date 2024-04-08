@@ -1,0 +1,18 @@
+{
+  "botprefix": ">",
+  "commands": "75",
+  "color": "#eeeeee",
+  "token": "MTEyNjY4MzYxMDM3MjY0OTA5MA.GbsQZn.tFkMKy4IxhPewpNvqkgsrE8PRKl1K7FYnaJ6HU", 
+  "invite": "https://discord.com/api/oauth2/authorize?client_id=857462324779941897&permissions=8&scope=bot",
+  "support": "https://discord.gg/tJ6FWnrQv8",
+  "upvote": "https://discordbotlist.com/bots/crude",
+  "mongooseConnectionString": "mongodb+srv://kvng:Qpwc!JHb8zvpwE!@kvng.tyyqt.mongodb.net/?retryWrites=true&w=majority",
+  "brando": "261976182872866817",
+  "jaylin": "804160862826397698",
+  "jayv": "886333487433519175",
+  "staff": {
+    "brando": "795386105901744200",
+    "jaylin": "784465812819017810",
+    "calen": "530049414094389268"
+  }
+}
