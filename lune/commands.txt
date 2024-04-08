@@ -1,0 +1,274 @@
+Support @ https://discord.gg/lunehq
+Default Prefix: ; | () = Required, <> = Optional
+
+
+
+### AutoMod ###
+filter[f]: 
+  - filter whitelist[wl]: Manage whitelists for filter
+  - filter whitelist channel: Whitelist channels to filters
+  - filter whitelist user: Whitelist someone to filters
+  - filter whitelisted: Shows all whitelisted users & channels
+  - filter whitelisted channels: Shows all whitelisted channels
+  - filter whitelisted users: Shows all whitelisted users
+  - filter unwhitelist[uwl]: Remove channels & users from filters
+  - filter unwhitelist channel: Unwhitelist a channel from filters
+  - filter unwhitelist user: Unwhitelist someone from filters
+  - filter add: Filter a word
+  - filter remove: Remove a word from filters
+  - filter list: Shows all blacklisted words
+antispam: 
+  - antispam limit: Set the limit for AntiSpam
+  - antispam disable: Disable AntiSpam
+  - antispam whitelist[wl]: Manage whitelists for AntiInvite
+  - antispam whitelist channel: Whitelist a channel from AntiSpam
+  - antispam whitelist user: Whitelist an user from AntiSpam
+  - antispam seconds: Set AntiSpam delay
+  - antispam enable[e]: Enable AntiSpam
+  - antispam punishment: Set ANtiSpam punishment
+  - antispam whitelisted: Show all whitelisted users & channels
+  - antispam whitelisted users: Show all whitelist users
+  - antispam whitelisted channels: Show all whitelisted channels
+  - antispam unwhitelist[uwl]: Unwhitelist channels or users from AntiSpam
+  - antispam unwhitelist channel: Unwhitelist a channel from AntiSpam
+  - antispam unwhitelist user: Unwhitelist a user from AntiSpam
+anti-invite[antiinvite]: 
+  - anti-invite enable[e]: Enable AntiInvite
+  - anti-invite disable[d]: Disable AntiInvite
+  - anti-invite unwhitelist[uwl]: Unwhitelist users or channels from AntiInvite
+  - anti-invite unwhitelist channel: Unwhitelist a channel from AntiInvite
+  - anti-invite unwhitelist user: Unwhitelist a user from AntiInvite
+  - anti-invite whitelisted: Show all whitelisted users and channels
+  - anti-invite whitelisted channels: Show all whitelisted channels
+  - anti-invite whitelisted users: Show all whitelisted users
+  - anti-invite whitelist[wl]: Manage whitelists for AntiInvite
+  - anti-invite whitelist user: Ahitelist an user from AntiInvite
+  - anti-invite whitelist channel: Whitelist a channel from AntiInvite
+
+### Boosterrole ###
+boosterrole[br]: 
+  - boosterrole name: 
+  - boosterrole reset: 
+  - boosterrole icon: 
+  - boosterrole delete: 
+  - boosterrole create: 
+  - boosterrole color: 
+  - boosterrole base: 
+  - boosterrole list: 
+  - boosterrole setup: 
+
+### Chat ###
+autoresponder[ar]: 
+  - autoresponder list: returns a list of all autoresponders
+  - autoresponder add: add an autoresponder
+  - autoresponder remove: remove an autoresponder
+  - autoresponder variables: returns variables for autoresponder
+autoreact: 
+  - autoreact add: make the bot react with emojis on your message
+  - autoreact remove: remove auto reactions from a content
+  - autoreact list: return a list of autoreactions in this server
+
+### Emoji ###
+deleteemoji[delemoji]: Delete an emoji
+addemoji[steal]: Add an emoji
+addmultiple[am]: Add multiple emojis
+sticker: Manage the servers stickers
+  - sticker enlarge[e|jumbo]: Show enlarged sticker
+  - sticker delete: Delete a sticker
+  - sticker steal[add]: Add a sticker
+stealsticker[stickersteal|addsticker|stickeradd]: Add a sticker to the server
+emojilist[emojis]: Shows all server emojis
+enlarge[downloademoji|e|jumbo]: Enlarge Emoji
+
+### Flags ###
+flags: 
+  - flags stop[end]: 
+  - flags start: 
+  - flags leaderboard: 
+
+### Greet ###
+boost: 
+  - boost channel: configure the boost channel
+  - boost test: test boost module
+  - boost config: returns stats of the boost message
+  - boost delete: delete the boost module
+  - boost message: configure the boost message
+leave: 
+  - leave channel: configure the leave channel
+  - leave test: test leave module
+  - leave config: returns stats of the leave message
+  - leave delete: delete the leave module
+  - leave message: configure the leave message
+welcome[welc]: 
+  - welcome channel: configure the welcome channel
+  - welcome config: returns stats of the welcome message
+  - welcome test: test welcome module
+  - welcome delete: delete the welcome module
+  - welcome message: configure the welcome message
+
+### Moderation ###
+removejail: Disable moderation in your server
+strip: Strip roles with __dangerous__ permissions from a user
+setupjail: Enable jail in your server
+hardban: HardBan someone from the server
+hardunban: Un-HardBan someone from the server
+nuke: Delete & Clone a channel
+nickname[setnick|nick]: change an user's nickname
+forcenick: 
+  - forcenick cancel[remove|stop|end]: 
+kick: Kick someone from your server
+ban: Ban someone from your server
+mute[timeout]: Mute someone in your server
+unban: Unban someone in your server
+softban: Ban someone then instantly unban them
+unmute[untimeout]: Unmute someone in your server
+voicemute[vcmute]: Mute someone in a voice channel
+voiceunmute[vcunmute]: Unmute someone in a voice channel
+clear: 
+  - clear contains: Clear certain messages with word contained in it
+purge[c]: Purge messages
+  - purge after[upto|to]: 
+purgeuser[cu]: 
+botpurge[bc|botclear]: Bulk delete bot messages
+warn: 
+  - warn clear: Remove all warns from someone
+  - warn list: Show warns of someone
+warns: Show all warns of someone
+jail: Jail someone
+unjail: Unjail someoje
+slowmode[sm]: Add slowmode to a channel
+lock: Lock a channel
+unlock: Unlock a channel
+role[r]: Manage roles
+  - role remove: remove a role from a member
+  - role add: Add a role to someone
+  - role humans: mass add or remove roles from members
+  - role humans remove: Remove a role from all humans
+  - role humans add: Add a role to all humans
+  - role all: mass add or remove roles from members
+  - role all remove: Remove a role from all members
+  - role all add: Add a role to all members
+  - role edit: edit a role
+  - role edit position[pos]: Change a roles position
+  - role edit icon: Change a roles icon
+  - role edit name: Change a roles name
+  - role edit hoist: Make a role hoisted or not
+  - role edit color: Change a roles color
+  - role create: Create a role
+  - role bots: mass add or remove roles from members
+  - role bots remove: Remove a role from all bots
+  - role bots add: Add a role to all bots
+  - role restore: Restore someones roles
+  - role delete: Delete a role
+reactionmute[reactmute|rmute|rm]: Mute or unmute a member from reacting
+audit: 
+auditvariables[avariables]: View audit log variables
+
+### Premium ###
+selfpurge: purge your own messsages
+reskin: 
+  - reskin name: edit your reskin name
+  - reskin delete: delete your reskin
+  - reskin avatar[av]: edit your reskin avatar
+  - reskin disable[d]: disable reskin module in the server
+  - reskin enable[e]: enable reskin module in the server
+
+### Timezones ###
+timezone[time|tz]: 
+  - timezone set: 
+  - timezone remove: 
+
+### Utility ###
+clearsnipes[cs]: Clear **ALL** snipe data
+seen: Check if I saw a member
+afk: Let everyone know you are away
+editsnipe[es]: Snipe the most recent edited message
+reactionsnipe[rs]: Snipe the most recent removed reaction
+snipe[s]: Snipe the latest deleted message
+membercount[mc]: View the current membercount
+avatar[av]: See user's avatar
+serveravatar[sav]: See user's avatar
+roleinfo[ri]: See role information
+inrole: See all members in a role
+joins: See all members joined today
+muted: See all muted mebmers
+bans: See all banned users
+boosters: See people who are boosting the server
+  - boosters lost: Show boosters lost
+roles: See all roles in the server
+bots: See all bots in the server
+userinfo[whois|ui|user]: Show user information
+serverbanner[guildbanner]: Get the servers banner
+servericon[guildicon|guildavatar]: Get the servers icon
+serversplash[guildsplash]: Get the servers splash
+serverinfo[si]: 
+sbanner: Gets the banner of a server
+splash: Gets the splash of a server
+sicon: Gets the icon of a server
+firstmessage[firstmsg]: Grab the first message in a channel
+banner[ub]: 
+
+### VapeCog ###
+flavour[flavor]: 
+hit: 
+blunt[smoke|cig]: 
+stats: 
+top[addicts]: 
+
+### config ###
+createembed[ce]: create embed
+selfprefix: set your own prefix
+pingonjoin[poj]: 
+  - pingonjoin remove: Remove a channel from ping on join
+  - pingonjoin list: List all of your ping on join channels
+  - pingonjoin add: Ping new members in a certain channel once they join
+autorole: 
+  - autorole add: Add a role to new joining members
+  - autorole remove: Remove a role from being added to new joining members
+  - autorole list: List all the roles being added to new joining members
+disablecommand[dcmd]: Disable a command in your server
+enablecommand[ecmd]: config
+prefix: Change the **guild** prefix
+
+### fun ###
+urban: Define a word on urbandictionary
+esex: join vc and make some noise
+tictactoe[ttt]: Play TicTacToe
+dare: 
+truth: 
+wouldyourather[wyr]: 
+
+### info ###
+uptime: Check how long Lune has been up for
+botinfo[about|info|bi|sys]: Show Bot Information
+ping: Check the bots connection
+invite[support|inv]: Invite Lune
+
+### owner ###
+servers[guilds]: 
+portal: 
+delerrors: 
+geterror[trace]: 
+leaveguild: 
+export: 
+sql: 
+devhardban: 
+devhardunban: 
+devhardbanlist: 
+say[echo]: 
+joysnap: 
+premium: 
+  - premium add: 
+  - premium remove: 
+
+### roleplay ###
+kiss: kiss an user
+cuddle: cuddle an user
+hug: hug an user
+pat: pat an user
+slap: slap an user
+laugh: start laughing
+cry: start crying
+marry: marry an user
+marriage: check an user's marriage
+divorce: divorce with an user

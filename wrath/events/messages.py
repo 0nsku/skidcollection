@@ -1,0 +1,139 @@
+import discord, datetime, asyncio
+from discord.ext import commands 
+import aiohttp
+import orjson
+import humanize
+from bs4 import BeautifulSoup
+from typing import Union, Optional, Any
+import io
+from discord.ext.commands import check, BadArgument 
+from tools.utils import PaginatorView
+import re
+
+def duration(n: int) -> str: 
+    uptime = int(n/1000)
+    seconds_to_minute   = 60
+    seconds_to_hour     = 60 * seconds_to_minute
+    seconds_to_day      = 24 * seconds_to_hour
+
+    days    =   uptime // seconds_to_day
+    uptime    %=  seconds_to_day
+
+    hours   =   uptime // seconds_to_hour
+    uptime    %=  seconds_to_hour
+
+    minutes =   uptime // seconds_to_minute
+    uptime    %=  seconds_to_minute
+
+    seconds = uptime
+    if days > 0: return ("{} days, {} hours, {} minutes, {} seconds".format(days, hours, minutes, seconds))
+    if hours > 0 and days == 0: return ("{} hours, {} minutes, {} seconds".format(hours, minutes, seconds))
+    if minutes > 0 and hours == 0 and days == 0: return ("{} minutes, {} seconds".format(minutes, seconds))
+    if minutes < 0 and hours == 0 and days == 0: return ("{} seconds".format(seconds))
+
+def is_afk():
+  async def predicate(ctx: commands.Context):
+    check = await ctx.bot.db.fetchrow("SELECT * FROM afk WHERE guild_id = $1 AND user_id = $2", ctx.guild.id, ctx.author.id)
+    return check is None 
+  return check(predicate)
+
+def afk_ratelimit(self, message: discord.Message) -> Optional[int]:
+    """
+    Cooldown for the afk message event
+    """
+
+    bucket = self.afk_cd.get_bucket(message)
+    return bucket.update_rate_limit()
+
+class Messages(commands.Cog): 
+    def __init__(self, bot: commands.AutoShardedBot): 
+      self.bot = bot
+      self.snipes = {}
+      self.edit_snipes = {}
+      self.afk_cd = commands.CooldownMapping.from_cooldown(3, 3, commands.BucketType.channel)
+
+    @commands.Cog.listener('on_message')
+    async def boost_listener(self, message: discord.Message): 
+     if "MessageType.premium_guild" in str(message.type):
+      if message.guild.id == 1170234585414643742: 
+       member = message.author
+       check = await self.bot.db.fetchrow("SELECT * FROM donor WHERE user_id = $1", member.id)
+       if check: return 
+       ts = int(datetime.datetime.now().timestamp())
+       await self.bot.db.execute("INSERT INTO donor VALUES ($1,$2)", member.id, ts)  
+       return await message.channel.send(f"{member.mention}, thanks for boosting. you now have premium :)")     
+
+    @commands.Cog.listener("on_message")
+    async def seen_listener(self, message: discord.Message): 
+      if not message.guild: return 
+      if message.author.bot: return
+      check = await self.bot.db.fetchrow("SELECT * FROM seen WHERE guild_id = {} AND user_id = {}".format(message.guild.id, message.author.id))
+      if check is None: return await self.bot.db.execute("INSERT INTO seen VALUES ($1,$2,$3)", message.guild.id, message.author.id, int(datetime.datetime.now().timestamp()))  
+      ts = int(datetime.datetime.now().timestamp())
+      await self.bot.db.execute("UPDATE seen SET time = $1 WHERE guild_id = $2 AND user_id = $3", ts, message.guild.id, message.author.id)
+ 
+
+    @commands.Cog.listener('on_message')
+    async def afk_listener(self, message: discord.Message):
+        if message.is_system():
+          return
+    
+        if not message.guild: 
+          return 
+    
+        if not message.author: 
+          return
+    
+        if message.author.bot: 
+          return
+
+        if check := await self.bot.db.fetchrow("SELECT * FROM afk WHERE guild_id = $1 AND user_id = $2", message.guild.id, message.author.id):
+          ctx = await self.bot.get_context(message)
+          time = check['time']
+          time_datetime = datetime.datetime.utcfromtimestamp(time)
+          delta = humanize.precisedelta(time_datetime, format="%0.0f")
+          che = await self.bot.db.fetchrow("SELECT * from afk where guild_id = $1 AND user_id = $2", message.guild.id, message.author.id)
+          await self.bot.db.execute("DELETE FROM afk WHERE guild_id = $1 AND user_id = $2", message.guild.id, message.author.id)
+          embed = discord.Embed(
+        color=self.bot.color,
+        description=f"> {ctx.author.mention}: Welcome back, you went AFK **{self.bot.ext.relative_time(datetime.datetime.fromtimestamp(int(che['time'])))}**"
+          )
+          return await ctx.send(embed=embed)
+    
+        for mention in message.mentions:
+         check = await self.bot.db.fetchrow("SELECT * FROM afk WHERE guild_id = $1 AND user_id = $2", message.guild.id, mention.id)
+         if check:
+
+          ctx = await self.bot.get_context(message)
+          time = check['time']
+          time_datetime = datetime.datetime.fromtimestamp(time)
+          timestamp_format = f"<t:{int(time_datetime.timestamp())}:R>"
+          embed = discord.Embed(
+        color=self.bot.color,
+        description=f"> {ctx.author.mention}: **{mention.name}** is AFK: **{check['reason']}** - {timestamp_format}"
+          )
+          return await ctx.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_message_delete(self, message: discord.Message):
+     if not message.guild: return 
+     if message.author.bot: return
+     invites = ["discord.gg/", ".gg/", "discord.com/invite/"]
+     if any(invite in message.content for invite in invites):
+       check = await self.bot.db.fetchrow("SELECT * FROM antiinvite WHERE guild_id = $1", message.guild.id)
+       if check: return
+
+     attachment = message.attachments[0].url if message.attachments else "none"
+     author = str(message.author)
+     content = message.content
+     avatar = message.author.display_avatar.url 
+     await self.bot.db.execute("INSERT INTO snipe VALUES ($1,$2,$3,$4,$5,$6,$7)", message.guild.id, message.channel.id, author, content, attachment, avatar, datetime.datetime.now())
+    
+    @commands.Cog.listener()
+    async def on_message_edit(self, before: discord.Message, after: discord.Message): 
+     if not before.guild: return 
+     if before.author.bot: return 
+     await self.bot.db.execute("INSERT INTO editsnipe VALUES ($1,$2,$3,$4,$5,$6)", before.guild.id, before.channel.id, before.author.name, before.author.display_avatar.url, before.content, after.content)    
+
+async def setup(bot: commands.AutoShardedBot) -> None: 
+  await bot.add_cog(Messages(bot))     
