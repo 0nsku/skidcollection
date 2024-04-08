@@ -1,0 +1,11 @@
+aiohttp
+asyncio
+discord.py
+psutil
+nextcord
+aiodns
+humanfriendly
+orjson
+psutil
+typing_extensions
+jishaku
