@@ -1,0 +1,10 @@
+discord.py
+psutil
+humanize
+colorama
+aiohttp
+googletrans==4.0.0-rc1
+gtts
+instaloader
+jishaku
+pynacl
